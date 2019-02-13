@@ -1,0 +1,17 @@
+stages:
+- name: test
+  steps:
+  - runScriptConfig:
+      image: java:8
+      shellScript: echo test
+- name: 编译
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: solo/v2
+- name: 发布
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+timeout: 60
